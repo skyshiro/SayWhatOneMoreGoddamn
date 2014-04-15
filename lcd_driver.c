@@ -1,4 +1,4 @@
-//blerg
+//blerg andy is going to die
 #include <msp430.h>
 
 void lcd_setup()
@@ -51,6 +51,19 @@ void lcd_setup()
 void lcd_write_message(char *message)
 {
 	unsigned int i;
+
+	//Send clear display 1
+	P2OUT = BIT2;
+	P1OUT = 0x0;
+	P2OUT = 0x00; //turn off enable so data is latched in
+	P1OUT = 0x00;
+	//Send clear display 2
+	P2OUT = BIT2;
+	P1OUT = 0x1;
+	P2OUT = 0x00; //turn off enable so data is latched in
+	P1OUT = 0x00;
+
+	__delay_cycles(1600);
 
 	for(i=0;i<(16-strlen(message))/2;i++)
 		{

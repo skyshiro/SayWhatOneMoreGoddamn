@@ -9,7 +9,7 @@
 
 #define BUTTON BIT5
 
-int buttonFlag = 0;
+int buttonFlag;
 
 int main(void)
 {
@@ -18,47 +18,29 @@ int main(void)
 	char message[] = "Hello World";
 
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-	
-    P1OUT |= BUTTON;
-    P1REN |= BUTTON;
-    P1IE |= BUTTON;
-    P1IES |= BUTTON;
-    P1IFG &= ~BUTTON;
 
     lcd_setup();
+
+    lcd_write_message(message);
+	
+    P2OUT |= BUTTON;
+    P2REN |= BUTTON;
+    P2IE |= BUTTON;
+    P2IES |= BUTTON;
+    P2IFG &= ~BUTTON;
+
+    buttonFlag = 0;
 
     __enable_interrupt();
 
     while(1)
     {
-    	//insert hello world
-
-    	buttonFlag = 0;
-
-    	lcd_write_message(message);
-
-    	do
-    	{
-
-    	}
-    	while(!buttonFlag);
 
     	if(buttonFlag)
     	{
     		buttonFlag = 0;
-    		P1IE |= BUTTON;
-
     		lcd_write_message(pulpfiction);
-
-    		do
-    		{
-
-    		}
-    		while(buttonFlag);
-
     	 }
-
-
     }
 
 
@@ -66,12 +48,11 @@ int main(void)
 }
 
 #pragma vector=PORT1_VECTOR
-__interrupt void Port_1(void)
+__interrupt void Port_2(void)
 {
-	if(P1IFG & BUTTON)
+	if(P2IFG & BUTTON)
 	{
 		buttonFlag = 1;
-		P1IE &= ~BUTTON;
-		P1IFG &= ~BUTTON;
+		P2IFG &= ~BUTTON;
 	}
 }
