@@ -1,6 +1,10 @@
 //blerg andy is going to die
 #include <msp430.h>
 
+//ports = [bit1,bit2,bit3,bit5]
+
+//P1OUT = (BIT0 & 0x0D) << ports[0] | (bit1 & 0x0D) << PORTS[1] | (BIT2 & 0x0D) << ports[3]
+
 void lcd_setup()
 {
 	P1DIR |= BIT3 + BIT2 + BIT1 + BIT0; //sets all of PORT1 to output, using PORT1 as parallel bus
