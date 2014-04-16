@@ -1,11 +1,5 @@
 #include <msp430.h>
-
 #include "lcd_driver.h"
-
-
-/*
- * main.c
- */
 
 #define BUTTON BIT4
 
@@ -17,11 +11,15 @@ int main(void)
 	char pulpfiction[] = "My name is Maximus Decimus Meridius, commander of the Armies of the North, General of the Felix Legions and loyal servant to the true emperor, Marcus Aurelius. Father to a murdered son, husband to a murdered wife. And I will have my vengeance, in this life or the next.";
 	char message[] = "Hello World";
 
+	int data_ports[] = {BIT0, BIT1, BIT2, BIT3};
+
+	int ctrl_ports[] = {BIT0, BIT1, BIT2};
+
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
-    lcd_setup();
+    lcd_setup(data_ports,ctrl_ports);
 
-    lcd_write_message(message);
+    lcd_write_message(data_ports,ctrl_ports,pulpfiction);
 	
     P2OUT |= BUTTON;
     P2REN |= BUTTON;
