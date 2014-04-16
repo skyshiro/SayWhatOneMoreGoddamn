@@ -13,7 +13,7 @@
 
 //P1OUT = (BIT0 & 0x0D) << ports[0] | (bit1 & 0x0D) << PORTS[1] | (BIT2 & 0x0D) << ports[3]
 
-void lcd_setup(char *data_ports,char *ctrl_ports) //data_ports uses pins on PORT2 and ctrl_ports uses pins on PORT1
+void lcd_setup(int *data_ports,int *ctrl_ports) //data_ports uses pins on PORT2 and ctrl_ports uses pins on PORT1
 {
 	P1DIR |= ctrl_ports[0] + ctrl_ports[1] + ctrl_ports[2]; //using PORT1 for control lines
 	
