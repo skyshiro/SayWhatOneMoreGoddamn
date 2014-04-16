@@ -63,7 +63,7 @@ void lcd_setup(int *data_ports,int *ctrl_ports) //data_ports uses pins on PORT2 
 	__delay_cycles(1600);
 }
 
-void lcd_write_message(char *message)
+void lcd_write_message(int *data_ports,int *ctrl_ports, char *message)
 {
 	unsigned int i,j;
 
